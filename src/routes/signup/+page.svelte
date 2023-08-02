@@ -49,7 +49,7 @@ onAuthStateChanged(auth, (user) => {
 
 <div class="center" >
   <span>Already have an account?</span>
-  <button on:click={()=>goto("/auth/login")}>Log in</button>
+  <button on:click={()=>goto("/signin")}>Sign in</button>
 </div>
 
 <h3 class="center or" >Or</h3>

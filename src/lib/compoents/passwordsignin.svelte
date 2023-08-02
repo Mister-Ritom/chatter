@@ -19,7 +19,7 @@
     let password = ""
     function getSubmitText() {
         if(signInType==1) {
-            return "Log in"
+            return "Sign in"
         }
         else return "Create a new account"
     }

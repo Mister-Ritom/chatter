@@ -6,24 +6,27 @@
 	--font-header: 'Oswald', sans-serif;
 	--font-text: 'Poppins', sans-serif;
 	--text: #040208;
+	--ignore-text:#b9b9b9;
 	--background: #e1daf6;
 	--primary: #71228c;
 	--secondary: #eaf4d2;
-	--accent: #224e13;
+	--accent: #da536e;
 	color: var(--color-text);
 }
 
 @media(prefers-color-scheme: dark) {
 	:root {
 		--text: #e1daf6;
+		--ignore-text:#161616;
 		--background: #040208;
 		--primary: #71228c;
 		--secondary: #1d2509;
-		--accent: #57c931;
+		--accent: #DC143C;
 	}
 }
 
 body {
+	min-width: 100vw;
 	min-height: 100vh;
 	margin: 0;
 	background-attachment: fixed;
@@ -32,8 +35,13 @@ body {
 	color: var(--text);
 	background-color: var(--background);
 	font-family: var(--font-text);
+	overflow-x: hidden;
 }
 
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
 
 h1,
 h2,
@@ -82,6 +90,7 @@ header {
 input,
 button {
 	all: revert;
+	max-width: fit-content;
 	background-color: inherit;
 	color: inherit;
 	font-family: inherit;

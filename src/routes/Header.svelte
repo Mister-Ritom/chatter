@@ -6,7 +6,7 @@
 	<nav class="main-nav">
 		<ul class="main-nav-list">
 			<li class="nav-item" ><a class="nav-link" href="/">Home</a></li>
-			<li class="nav-item" ><a class="nav-link"  href="/profile">My Profile</a></li>
+			<li class="nav-item" ><a class="nav-link"  href="/profile/me">My Profile</a></li>
 			<li class="nav-item" ><a class="nav-link"  href="/notifs">Notifications</a></li>
 		</ul>
 	</nav>

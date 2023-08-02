@@ -25,7 +25,7 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<p>Owned by <a href="https://ritom.site">Ritom</a></p>
 	</footer>
 </div>
 

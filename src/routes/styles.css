@@ -1,19 +1,26 @@
-@import '@fontsource/fira-mono';
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Poppins:wght@500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
 
 :root {
-	--font-body: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-		Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-	--font-mono: 'Fira Mono', monospace;
-	--color-bg-0: rgb(202, 216, 228);
-	--color-bg-1: hsl(209, 36%, 86%);
-	--color-bg-2: hsl(224, 44%, 95%);
-	--color-theme-1: #ff3e00;
-	--color-theme-2: #4075a6;
-	--color-text: rgba(0, 0, 0, 0.7);
-	--column-width: 42rem;
-	--column-margin-top: 4rem;
-	font-family: var(--font-body);
+	--font-header: 'Oswald', sans-serif;
+	--font-text: 'Poppins', sans-serif;
+	--text: #040208;
+	--background: #e1daf6;
+	--primary: #71228c;
+	--secondary: #eaf4d2;
+	--accent: #224e13;
 	color: var(--color-text);
+}
+
+@media(prefers-color-scheme: dark) {
+	:root {
+		--text: #e1daf6;
+		--background: #040208;
+		--primary: #71228c;
+		--secondary: #1d2509;
+		--accent: #57c931;
+	}
 }
 
 body {
@@ -22,13 +29,11 @@ body {
 	background-attachment: fixed;
 	background-color: var(--color-bg-1);
 	background-size: 100vw 100vh;
-	background-image: radial-gradient(
-			50% 50% at 50% 50%,
-			rgba(255, 255, 255, 0.75) 0%,
-			rgba(255, 255, 255, 0) 100%
-		),
-		linear-gradient(180deg, var(--color-bg-0) 0%, var(--color-bg-1) 15%, var(--color-bg-2) 50%);
+	color: var(--text);
+	background-color: var(--background);
+	font-family: var(--font-text);
 }
+
 
 h1,
 h2,
@@ -69,19 +74,18 @@ pre {
 	color: var(--color-text);
 }
 
-.text-column {
-	display: flex;
-	max-width: 48rem;
-	flex: 0.6;
-	flex-direction: column;
-	justify-content: center;
-	margin: 0 auto;
+header {
+	font-family: var(--font-header);
+	letter-spacing: 2px;
 }
 
 input,
 button {
-	font-size: inherit;
+	all: revert;
+	background-color: inherit;
+	color: inherit;
 	font-family: inherit;
+	font-size: inherit;
 }
 
 button:focus:not(:focus-visible) {

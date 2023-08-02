@@ -1,6 +1,7 @@
 <script lang="js">
 import Passwordlogin from "$lib/compoents/passwordsignin.svelte";
 import Providerlgin from "$lib/compoents/providerlgin.svelte";
+import About from "../about/+page.svelte";
 
 import { auth, db } from "$lib/firebase"
 import { goto } from "$app/navigation"
@@ -78,16 +79,7 @@ onAuthStateChanged(auth, (user) => {
   <h1>Sign in to <span class="chatter">RG-Chatter</span></h1>
 </header>
 <main>
-  <div class="about">
-    <h1>RG-Chatter</h1>
-    <h2>Revolutionizing the Way You Connect</h2>
-    <p>Discover a new dimension of social interaction with RG-Chatter, 
-      a cutting-edge chat application designed to bring people together like never before. 
-      Much more than just a platform, 
-      RG-Chatter is a vibrant community where you can seamlessly connect with friends and 
-      like-minded individuals through servers and groups, all within an elegant and 
-      classy user interface.</p>
-  </div>
+  <span class="about"><About/></span>
   <Passwordlogin bind:errorText={errorText} onSignIn={signInWithEmail} signInType={0}/>
 </main>
 

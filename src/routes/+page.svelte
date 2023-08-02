@@ -7,7 +7,7 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<h1>Hi mom</h1>
+<h1>Hi momma</h1>
 
 <style>
 	

@@ -77,10 +77,10 @@ onAuthStateChanged(auth, (user) => {
 });
 
 </script>
-<header>
+<header class="center">
   <h1>Sign in to <span class="chatter">RG-Chatter</span></h1>
 </header>
-<main>
+<main class="center">
   <span class="about"><About/></span>
   <Passwordlogin bind:errorText={errorText} onSignIn={signInWithEmail} signInType={1}/>
 </main>

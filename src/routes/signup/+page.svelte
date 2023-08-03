@@ -77,7 +77,7 @@ onAuthStateChanged(auth, (user) => {
 
 </script>
 <header>
-  <h1>Sign in to <span class="chatter">RG-Chatter</span></h1>
+  <h1>Sign up to <span class="chatter">RG-Chatter</span></h1>
 </header>
 <main>
   <span class="about"><About/></span>

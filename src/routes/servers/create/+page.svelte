@@ -77,6 +77,7 @@
     function setServerInfo(ownerId,docId,serverImageLink,success) {
         const serverInfoDoc = doc(db,"Servers",docId)
                     setDoc(serverInfoDoc,{
+                    id:docId,
                     name:serverName,
                     serverImage:serverImageLink,
                     createdBy:ownerId,

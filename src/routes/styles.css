@@ -8,6 +8,7 @@
 	--text: #040208;
 	--ignore-text:#b9b9b9;
 	--background: #e1daf6;
+	--nav-bg:#d2c5f8;;
 	--primary: #71228c;
 	--secondary: #eaf4d2;
 	--accent: #da536e;
@@ -19,6 +20,7 @@
 		--text: #e1daf6;
 		--ignore-text:#161616;
 		--background: #040208;
+		--nav-bg:#0a0514;
 		--primary: #71228c;
 		--secondary: #1d2509;
 		--accent: #DC143C;
@@ -105,16 +107,4 @@ button:focus:not(:focus-visible) {
 	h1 {
 		font-size: 2.4rem;
 	}
-}
-
-.visually-hidden {
-	border: 0;
-	clip: rect(0 0 0 0);
-	height: auto;
-	margin: 0;
-	overflow: hidden;
-	padding: 0;
-	position: absolute;
-	width: 1px;
-	white-space: nowrap;
 }

@@ -60,7 +60,8 @@ function addUser(uuid,username,name,email,photoUrl) {
     email:email,
     username:username,
     name:name,
-    photoUrl:photoUrl
+    photoUrl:photoUrl,
+    joinedOn:Date.now()
   }).catch((error)=> {
     errorText = "Something went wrong trying to add user to database"
     alert(errorText);
@@ -119,4 +120,18 @@ onAuthStateChanged(auth, (user) => {
       background-clip: text;
       color: transparent;
     }
+    @media (max-width: 720px) {
+      .about {
+        visibility: collapse;
+        border: 0;
+        clip: rect(0 0 0 0);
+        height: auto;
+        margin: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        white-space: nowrap;
+      }
+  }
   </style>

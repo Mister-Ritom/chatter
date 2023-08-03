@@ -1,6 +1,6 @@
 <script lang="js">
     import ErrorComp from "$lib/compoents/ErrorComponent.svelte";
-         /**
+    /**
 	 * @type {string}
 	 */
      export let errorText = ""
@@ -8,7 +8,7 @@
 	 * @type {number}
 	 */
 	  export let signInType
-      /**
+    /**
 	 * @type {(email: string, password: string) => any}
 	 */
        export let onSignIn;
@@ -27,9 +27,9 @@
 
 <form on:submit={()=> onSignIn(email,password)} class="signin">
     <label for="email">Email</label>
-    <input bind:value={email} type="email"/>
+    <input bind:value={email} type="email" id="email" />
     <label for="password">Password</label>
-    <input bind:value={password} type="password"/>
+    <input bind:value={password} type="password" id="password" />
     <button type="submit" id="signin-submit">{getSubmitText()}</button>
     <ErrorComp bind:errorText={errorText}/>
 </form>

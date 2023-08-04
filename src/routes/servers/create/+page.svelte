@@ -31,7 +31,7 @@
                 createdOn:Date.now()
             }).then((it)=> {
                 if(auth.currentUser) {
-                    const serverImageRef = ref(storage,"Servers")
+                    const serverImageRef = ref(storage,`Servers/${it.id}`)
                     if(serverImage){
                         uploadBytes(serverImageRef,serverImage).then((snapshot)=> {
                             getDownloadURL(snapshot.ref).then((downloadLink)=> {

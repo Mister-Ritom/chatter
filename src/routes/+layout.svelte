@@ -45,14 +45,17 @@
 		max-width: 64rem;
 		margin: 0 auto;
 		box-sizing: border-box;
+		width: fit-content;
+		height: fit-content;
 	}
 
 	footer {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+		justify-content: start;
+		align-items: start;
 		padding: 12px;
+		margin-left: 1rem;
 	}
 
 	footer a {

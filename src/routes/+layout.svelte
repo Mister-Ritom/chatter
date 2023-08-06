@@ -34,27 +34,23 @@
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
+		min-width: 100vw;
 	}
 
 	main {
-		flex: 1;
 		display: flex;
 		flex-direction: column;
 		padding: 1rem;
 		width: 100%;
 		max-width: 64rem;
-		margin: 0 auto;
+		margin: 0;
 		box-sizing: border-box;
 		width: fit-content;
 		height: fit-content;
 	}
 
 	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: start;
-		align-items: start;
-		padding: 12px;
+		padding: 2px;
 		margin-left: 1rem;
 	}
 

@@ -2,7 +2,12 @@
 	import { page } from "$app/stores";
     import SmallUser from "$lib/compoents/SmallUser.svelte";
 	import { pb, user } from "$lib/pocketbase";
-	import { onDestroy, onMount } from "svelte";
+	import { onDestroy, onMount, tick } from "svelte";
+
+    /**
+	 * @type {HTMLUListElement}
+	 */
+    let messageList;
 
     /**
 	 * @type {any[]}
@@ -22,6 +27,8 @@
                 filter: `server = "${serverId}"`,
             })
             messages = result.items;
+            await tick()
+            scrollToBottom(messageList)
             unsubscribe = await pb
                 .collection('messages')
                 .subscribe('*', async ({ action, record }) => {
@@ -30,7 +37,7 @@
                     const user = await pb.collection('users').getOne(record.user);
                     record.expand = { user };
                     messages = [...messages, record];
-                    }
+                }
                     if (action === 'delete') {
                     messages = messages.filter((m) => m.id !== record.id);
                 }
@@ -41,6 +48,12 @@
     onDestroy(() => {
         unsubscribe();
     });
+    /**
+	 * @param {HTMLUListElement} node
+	 */
+    function scrollToBottom(node){
+        node.scroll({ top: node.scrollHeight, behavior: 'smooth' });
+    }; 
 
     /**
 	 * @param {any} message
@@ -69,20 +82,23 @@
     }
     
 </script>
-<ul class="messages">
-    {#each messages as message}
-        <li class={getClass(message)}>
-            <SmallUser user={message.expand.user}/>
-            <p class="message-text">{message.text}</p>
-        </li>
-    {/each}
-</ul>
 
-<form on:submit={sendMessage}>
-    <input bind:value={message} type="text">
-    <button type="submit">Send</button>
-</form>
+    <ul bind:this={messageList} class="messages">
+        {#each messages as message}
+            <li class={getClass(message)}>
+                <SmallUser user={message.expand.user}/>
+                <p class="message-text">{message.text}</p>
+            </li>
+        {/each}
+    </ul>
+    
+    <form on:submit={sendMessage}>
+        <input bind:value={message} type="text">
+        <button type="submit">Send</button>
+    </form>
+
 <style>
+
 form {
     position: absolute;
     margin-top: auto;
@@ -92,7 +108,8 @@ form {
     margin-left: auto;
     margin-right: auto;
     z-index:999;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
+    overflow: hidden;
 }
 .messages{
     display: flex;
@@ -106,12 +123,13 @@ form {
 }
 
 .message {
-    width: 35vw;
+    width: 30vw;
     height: max-content;
     background-color: var(--message-bg);
     border-radius: 16px;
     padding: 24px;
     margin: 8px;
+    box-shadow: 0 4px 8px 0 var(--accent);
 }
 
 @media (max-width:720px) {

@@ -97,7 +97,7 @@ form {
 .messages{
     display: flex;
     justify-content: start;
-    align-items: center;
+    align-items: start;
     flex-direction: column;
     height: 65vh;
     width: 80vw;

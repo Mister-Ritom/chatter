@@ -1,60 +1,41 @@
 
 <script>
-	import { db } from "$lib/firebase";
-    import { collection, getDocs } from "firebase/firestore";
+	import { pb } from "$lib/pocketbase";
+	import { onMount } from "svelte";
 
     /**
 	 * @type {any[]}
 	 */
-    let datas = [];
-    let serversVisible = false
-    async function addServers() {
-        if(datas.length<50) {
-            serversVisible = true
-            const querySnapshot = await getDocs(collection(db, "Servers"))
-            querySnapshot.forEach((doc) => {
-                    const data = doc.data()
-                    console.log(doc.id, " => ", data);
-                    datas=[...datas,data]
-                });
-        }
+    let servers = [];
 
+    onMount(async ()=> {
+        const result = await pb.collection('servers').getList(1,50, {
+            sort:'created',
+            expand: 'owner',
+        })
+        servers = result.items;
+
+    })
+
+    /**
+	 * @param {any} server
+	 */
+    function getImageUrl(server) {
+        return pb.files.getUrl(server, server.image, {'thumb': '100x250'});
     }
-</script>
-<div class="main">
-    <a class="create" href="/servers/create">Create Server</a>
-    <button class="create" disabled={serversVisible} on:click={addServers}>View servers I am insterested in</button>
-</div>
 
-{#each datas as data}
+</script>
+
+{#each servers as server (server.id)}
 <div class="server">
-    <img class="server-image" width="128px" height="128px" src={data.serverImage} alt={`${data.name}'s server image for rg-chatter'`}>
-    <a class="server-name" href={`/message?id=${data.id}`}> 
-        <h2>{data.name}</h2>
+    <img class="server-image" width="128px" height="128px" src={getImageUrl(server)} alt={`${server.name}'s server image for rg-chatter'`}>
+    <a class="server-name" href={`/message?serverId=${server.id}`}> 
+        <h2>{server.name}</h2>
     </a>
 </div>
 {/each}
 
 <style>
-
-    .main{
-        display: flex;
-    }
-
-    .create {
-        background-color: var(--accent);
-        width: max-content;
-        padding: 1rem;
-        margin: 8px;
-        border-radius: 2rem;
-        transition: 0.2s;
-        text-decoration: none;
-        cursor: pointer;
-    }
-
-    .create:hover{
-        background-color: var(--primary);
-    }
 
     .server {
         display: flex;

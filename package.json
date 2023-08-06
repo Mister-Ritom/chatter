@@ -33,6 +33,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"firebase": "^10.1.0"
+		"pocketbase": "^0.16.0"
 	}
 }

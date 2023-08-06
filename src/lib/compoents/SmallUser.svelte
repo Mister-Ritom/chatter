@@ -1,28 +1,20 @@
 <script>
-	import { db } from "$lib/firebase";
-	import { doc, getDoc } from "firebase/firestore";
-
-    export let userId;
+	import { pb } from "$lib/pocketbase";
 
     /**
 	 * @type {any}
 	 */
-    let user = {
-        name:"Working",
-        photoUrl:"https://www.google.com/url?sa=i&url=https%3A%2F%2Ffreeiconshop.com%2Ficon%2Fimage-icon-outline-filled%2F&psig=AOvVaw3aWyZLTrzYXGUNwJN2DQcM&ust=1691210333046000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPiXpMuXwoADFQAAAAAdAAAAABAE",
-    };
+     export let user
 
-    const userDoc = doc(db,"Users",userId)
-    getDoc(userDoc).then((userSnapshot)=> {
-        const data = userSnapshot.data()
-        user = data
-    })
+     function getImageUrl() {
+        return pb.files.getUrl(user, user.avatar, {'thumb': '100x250'});
+    }
 
 </script>
 
 <div class={"user"}>
-    <img width="48px" height="48px" src={user.photoUrl} alt={`${user.name}'s Profile Photo'`} class="user-image">
-    <h2 class="user-name">{user.name}</h2>
+    <img width="48px" height="48px" src={getImageUrl()} alt={`${user.name}'s Profile Photo'`} class="user-image">
+    <h2 class="user-name">{user.name}</h2> 
 </div>
 
 <style>

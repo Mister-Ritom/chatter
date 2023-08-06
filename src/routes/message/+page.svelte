@@ -2,7 +2,7 @@
 	import { page } from "$app/stores";
     import SmallUser from "$lib/compoents/SmallUser.svelte";
 	import { pb, user } from "$lib/pocketbase";
-	import { onMount } from "svelte";
+	import { onDestroy, onMount } from "svelte";
 
     /**
 	 * @type {any[]}
@@ -36,6 +36,10 @@
             });
         }
     })
+
+    onDestroy(() => {
+        unsubscribe();
+    });
 
     /**
 	 * @param {any} message

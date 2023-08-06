@@ -12,6 +12,7 @@
 	--primary: #f13583;
 	--secondary: #eaf4d2;
 	--accent: #da536e;
+	--message-bg:#c6b6f5;
 	color: var(--color-text);
 }
 
@@ -24,6 +25,7 @@
 		--primary: #470522;
 		--secondary: #1d2509;
 		--accent: #DC143C;
+		--message-bg:#121212;
 	}
 }
 

@@ -16,13 +16,14 @@
 
     onMount(async ()=> {
         if(serverId) {
-            const result = await pb.collection(serverId).getList(1,50, {
+            const result = await pb.collection('messages').getList(1,50, {
                 sort:'created',
                 expand: 'user',
+                filter: `server = "${serverId}"`,
             })
             messages = result.items;
             unsubscribe = await pb
-                .collection(serverId)
+                .collection('messages')
                 .subscribe('*', async ({ action, record }) => {
                     if (action === 'create') {
                     // Fetch associated user
@@ -60,22 +61,22 @@
             const data = {
                 text: message,
                 user: $user.id,
+                server:serverId,
             };
-            const createdMessage = await pb.collection(serverId).create(data);
+            const createdMessage = await pb.collection('messages').create(data);
             message = '';
         }
     }
     
 </script>
-<div class="messages">
+<ul class="messages">
     {#each messages as message}
-        <div class={getClass(message)}>
+        <li class={getClass(message)}>
             <SmallUser user={message.expand.user}/>
             <p class="message-text">{message.text}</p>
-        </div>
+        </li>
     {/each}
-
-</div>
+</ul>
 
 <form on:submit={sendMessage}>
     <input bind:value={message} type="text">
@@ -95,17 +96,28 @@ form {
 }
 .messages{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     flex-direction: column;
     height: 65vh;
     width: 80vw;
     overflow-y: scroll;
+    list-style: none;
 }
 
 .message {
     width: 35vw;
     height: max-content;
+    background-color: var(--message-bg);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 8px;
+}
+
+@media (max-width:720px) {
+    .message {
+        width: auto;
+    }
 }
 
 .sent {

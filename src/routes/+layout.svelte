@@ -62,6 +62,15 @@
 		font-weight: bold;
 	}
 
+	@media (max-width:720px) {
+		footer {
+			visibility: hidden;
+			width: 0;
+			padding: 0;
+			margin: 0;
+		}
+	}
+
 	@media (min-width: 480px) {
 		footer {
 			padding: 12px 0;

@@ -1,14 +1,5 @@
 <script>
-	import { onAuthStateChanged } from "firebase/auth";
-	import { auth } from "$lib/firebase";
-	let user = true
-	onAuthStateChanged(auth, (it)=> {
-		if(it) {
-			console.log("User already signed in")
-			user = true
-		}
-		else user = false
-	})
+	import { user } from "$lib/pocketbase";
 </script>
 
 <header>
@@ -17,12 +8,11 @@
 		<ul class="main-nav-list">
 			<li class="nav-item" ><a class="nav-link" href="/">Home</a></li>
 			<li class="nav-item" ><a class="nav-link" href="/servers">Servers</a></li>
-			<li class="nav-item" ><a class="nav-link"  href="/profile/me">My Profile</a></li>
+			<li class="nav-item" ><a class="nav-link"  href="/profile">My Profile</a></li>
 			<li class="nav-item" ><a class="nav-link"  href="/notifs">Notifications</a></li>
-			{#if !user}
+			{#if !$user}
 			<div class="sign-in-buttons">
 				<li class="nav-item"><a href="/signin" class="nav-link">Sign in</a></li>
-				<li class="nav-item"><a href="/signup" class="nav-link">Sign up</a></li>
 			</div>
 		{/if}
 		</ul>

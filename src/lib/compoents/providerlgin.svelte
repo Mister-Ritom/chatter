@@ -1,8 +1,7 @@
 <script>
-    /**
-	 * @type {any}
-	 */
- export let signInWithGoogle;
+  function signInWithGoogle() {
+    
+  }
 </script>
 
 <div class="center">

@@ -1,69 +1,72 @@
 <script>
-	import { auth, db } from "$lib/firebase";
-	import { addDoc, collection, limit, onSnapshot, orderBy, query } from "firebase/firestore";
+	import { page } from "$app/stores";
     import SmallUser from "$lib/compoents/SmallUser.svelte";
+	import { pb, user } from "$lib/pocketbase";
+	import { onMount } from "svelte";
 
     /**
 	 * @type {any[]}
 	 */
-    let messages = []
-        /**
-	 * @type {any[]}
-	 */
-     let users = []
+     let messages = [];
 
-    let id = "FFJN5GF3vHYwEpOHc310";
-    /**
-	 * @type {string}
-	 */
-    let message;
+     let message = ""
+     let unsubscribe = ()=> {}
+    const url = $page.url;
+    const serverId = url.searchParams.get("serverId")
 
-    /**
-	 * @type {HTMLDivElement}
-	 */
-
-    /**
-	 * @param {any} e
-	 */
-    function sendMessage(e) {
-        e.preventDefault();
-        if(message==undefined||message==null||message.length<1||auth.currentUser==null)return
-        const messageCollection = collection(db,"messages",id,"texts")
-        addDoc(messageCollection,getMessageData())
-    }
-    function getMessageData() {
-        return {
-            text:message,
-            createdBy:auth.currentUser?.uid,
-            createdOn:Date.now(),
+    onMount(async ()=> {
+        if(serverId) {
+            const result = await pb.collection(serverId).getList(1,50, {
+                sort:'created',
+                expand: 'user',
+            })
+            messages = result.items;
+            unsubscribe = await pb
+                .collection(serverId)
+                .subscribe('*', async ({ action, record }) => {
+                    if (action === 'create') {
+                    // Fetch associated user
+                    const user = await pb.collection('users').getOne(record.user);
+                    record.expand = { user };
+                    messages = [...messages, record];
+                    }
+                    if (action === 'delete') {
+                    messages = messages.filter((m) => m.id !== record.id);
+                }
+            });
         }
-    }
+    })
 
     /**
 	 * @param {any} message
 	 */
     function getClass(message) {
-        if(message.createdBy==auth.currentUser?.uid) {
-            return "sent message"
+        if($user!=null && message.expand.user.id==$user.id){
+            return "message sent"
         }
-        else return "received message"
+        else return "message received"
     }
-     
-        const textCollection = collection(db, "messages",id,"texts")
-        const snapshotQuery = query(textCollection,orderBy("createdOn","desc"),limit(25))
-            onSnapshot(snapshotQuery,(querySnapshot)=> {
-                messages = []
-                querySnapshot.forEach((doc) => {
-                    const data = doc.data()
-                    messages = [...messages,data];
-                });
-            })
+
+    /**
+	 * @param {any} e
+	 */
+    async function sendMessage(e) {
+        e.preventDefault()
+        if($user&&serverId) {
+            const data = {
+                text: message,
+                user: $user.id,
+            };
+            const createdMessage = await pb.collection(serverId).create(data);
+            message = '';
+        }
+    }
     
 </script>
 <div class="messages">
     {#each messages as message}
         <div class={getClass(message)}>
-            <SmallUser userId={message.createdBy}/>
+            <SmallUser user={message.expand.user}/>
             <p class="message-text">{message.text}</p>
         </div>
     {/each}
